@@ -1,102 +1,93 @@
 # Just List
 
-A VS Code extension that displays justfile commands in the Activity Bar for quick access.
+A VS Code extension that displays justfile commands organized by groups in the Activity Bar for quick access.
 
 ## Features
 
-- **Activity Bar View**: Shows all just commands in a dedicated sidebar view
-- **One-Click Execution**: Click any command to run it in the integrated terminal
-- **Auto-Discovery**: Automatically parses your workspace's justfile
-- **Command Descriptions**: Displays comments from your justfile as command descriptions
+- **📁 Grouped Commands**: Automatically organizes recipes by their `[group('name')]` attributes
+- **🔍 Multi-File Support**: Aggregates commands from main `.justfile` and all `.just/*.justfile` files
+- **▶️ One-Click Execution**: Click any command to run it in Git Bash terminal
+- **🔄 Auto-Discovery**: Automatically parses all justfiles in your workspace
+- **💬 Command Descriptions**: Displays comments from your justfile as tooltips
+- **🐚 Git Bash Integration**: Automatically uses Git Bash on Windows (not WSL)
 
 ## Usage
 
-1. Open a workspace containing a `justfile`
+1. Open a workspace containing a `.justfile` or `.just/` directory
 2. Click the Just icon in the Activity Bar (left sidebar)
-3. Browse available commands in the "Commands" view
-4. Click any command to execute it in the terminal
-5. Use the refresh button to reload commands after editing your justfile
+3. Browse commands organized by groups (e.g., dab, git, vscode)
+4. Click any command to execute it in Git Bash
+5. Use the refresh button (🔄) to reload commands after editing justfiles
 
-## Requirements
+## File Structure
 
-- [just](https://github.com/casey/just) command runner must be installed and available in your PATH
+The extension supports the following structure:
 
-## Sample Justfile
+```
+workspace/
+├── .justfile                 # Main justfile
+└── .just/                    # Optional directory for organized justfiles
+    ├── dab.justfile
+    ├── git.justfile
+    └── vscode.justfile
+```
+
+## Sample Justfile with Groups
 
 ```just
+# Commands are organized by their group attribute
+
 # Build the project
+[group('dev')]
 build:
     echo "Building project..."
     npm run compile
 
 # Run tests
+[group('dev')]
 test:
     echo "Running tests..."
     npm test
 
-# Clean build artifacts
-clean:
-    echo "Cleaning..."
-    rm -rf dist out
+# Deploy to production
+[group('deploy')]
+deploy target='prod':
+    echo "Deploying to {{target}}..."
+    ./deploy.sh {{target}}
 ```
+
+In the Activity Bar, these appear as:
+```
+📁 dev (2 recipes)
+  ▶️ build
+  ▶️ test
+📁 deploy (1 recipe)
+  ▶️ deploy
+```
+
+## Requirements
+
+- [just](https://github.com/casey/just) command runner (v1.25.0+) must be installed and available in your PATH
+- Git Bash (on Windows) - automatically detected from standard Git for Windows installation
 
 ## Extension Commands
 
 - `just-list.refresh`: Refresh the command list
 - `just-list.runCommand`: Run a just command
 
-**Enjoy!**
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release:
+- Group-based command organization
+- Multi-file justfile support
+- Git Bash integration (Windows)
+- Auto-discovery of recipes with parameters
 
 ---
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+**Enjoy!**
 
 ## For more information
 

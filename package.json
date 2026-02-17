@@ -1,8 +1,14 @@
 {
   "name": "just-list",
   "displayName": "Just List",
-  "description": "Shows justfile commands in Activity Bar",
+  "description": "Shows justfile commands organized by groups in Activity Bar with Git Bash support",
   "version": "0.0.1",
+  "publisher": "davebouman",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DaveBouman/just-filetree"
+  },
   "engines": {
     "vscode": "^1.109.0"
   },
